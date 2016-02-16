@@ -15,6 +15,7 @@ namespace Structura.GuiTests.PageObjects
     namespace Tests.PageObjects
     {
         using System.Threading;
+        using Data;
         using Tests = GuiTests.Tests;
 
 
@@ -54,30 +55,30 @@ namespace Structura.GuiTests.PageObjects
             
             public void Register()
             {
-                var d = new Data.Data();
+                var d = new Data.AccountInfo();
 
                
                 EmailField.SendKeys(d.Email);
                 EmailConfirmField.SendKeys(d.Email);
-                UsernameField.SendKeys(d.Username);
+                UsernameField.SendKeys(d.username);
                 PasswordField.SendKeys(d.Password);
                 ConfirmPasswordField.SendKeys(d.Password);
                 SelectElement SecurityQuestionDrop = new SelectElement(SecurityQuestionDropdown);
                 SecurityQuestionDrop.SelectByText(d.Securityselection);
                 SecurityQuestionAnswer.SendKeys(d.Securityanswer);
-                Console.WriteLine(d._username);
+                Console.WriteLine(d.username);
                 Console.WriteLine(d.Securityanswer);
                 NextButton.Click();
 
                 if (this._driver.Url == @"https://betacustomeraccess.myfloridaprepaid.com/enrollment/accountowner.aspx")
                 {
                     Tests.successCount++;
-                    Console.WriteLine("[SUCCESS RUN #" + Tests.runCount + "] [User: " + d.Username + " created]");
+                    Console.WriteLine("[SUCCESS RUN #" + Tests.runCount + "] [User: " + d.username + " created]");
                 }
                 else
                 {
                     Tests.failCount++;
-                    Console.WriteLine("[FAIL] [RUN #" + Tests.runCount +"]"+"[User: " + d.Username + " not created]");
+                    Console.WriteLine("[FAIL] [RUN #" + Tests.runCount + "]" + "[User: " + d.username + " not created]");
                 }
 
 

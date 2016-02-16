@@ -109,13 +109,15 @@ namespace Structura.GuiTests.SeleniumHelpers
                 case DriverToUse.PhantomJS:
 
                     desiredCapabilities = DesiredCapabilities.PhantomJS();
+                    desiredCapabilities.SetCapability("username", "alexmoll"); // supply sauce labs username
+                    desiredCapabilities.SetCapability("accessKey", "2a304989-8d68-4c32-aed1-2ec6ba1ca97a");
                     PhantomJSDriverService service = PhantomJSDriverService.CreateDefaultService();
                     service.GridHubUrl = gridUrl;
                     
                     break;
             }
             desiredCapabilities.IsJavaScriptEnabled = true;
-            var remoteDriver = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), desiredCapabilities);
+            var remoteDriver = new RemoteWebDriver(new Uri(gridUrl), desiredCapabilities);
             
             
             return remoteDriver;

@@ -13,24 +13,49 @@ using Tests.PageObjects;
 
 namespace Structura.GuiTests
 {
-    [TestFixture]
+    using OpenQA.Selenium.Remote;
+
+    [TestFixture("chrome", "45", "Windows 7", "", "")]
     public class Tests
     {
         private IWebDriver _driver;
         private StringBuilder _verificationErrors;
-        private string _baseUrl;
+        private string _baseUrl = @"http://betacustomeraccess.myfloridaprepaid.com/";
         public static int runCount = 0;
         public static int successCount = 0;
         public static int failCount = 0;
-        [SetUp]
-        public void SetupTest()
+        private String browser;
+        private String version;
+        private String os;
+        private String deviceName;
+        private String deviceOrientation;
+        
+        public Tests(String browser, String version, String os, String deviceName, String deviceOrientation)
         {
-            _driver = new DriverFactory().Create();
+            this.browser = browser;
+            this.version = version;
+            this.os = os;
+            this.deviceName = deviceName;
+            this.deviceOrientation = deviceOrientation;
             
-            _baseUrl = ConfigurationHelper.Get<string>("TargetUrl");
-            _verificationErrors = new StringBuilder();
         }
+        [SetUp]
+        public void Init()
+        {
+            DesiredCapabilities caps = new DesiredCapabilities();
+            caps.SetCapability(CapabilityType.BrowserName, browser);
+            caps.SetCapability(CapabilityType.Version, version);
+            caps.SetCapability(CapabilityType.Platform, os);
+            caps.SetCapability("deviceName", deviceName);
+            caps.SetCapability("deviceOrientation", deviceOrientation);
+            caps.SetCapability("username", "alexmoll"); // supply sauce labs username
+            caps.SetCapability("accessKey", "2a304989-8d68-4c32-aed1-2ec6ba1ca97a");
+            caps.SetCapability("name", TestContext.CurrentContext.Test.Name);
 
+            _driver = new RemoteWebDriver(new Uri("http://ondemand.saucelabs.com:80/wd/hub"), caps,
+                TimeSpan.FromSeconds(600));
+            
+        }
         [TearDown]
         public void TeardownTest()
         {
@@ -43,15 +68,16 @@ namespace Structura.GuiTests
             {
                 // Ignore errors if we are unable to close the browser
             }
-            _verificationErrors.ToString().Should().BeEmpty("No verification errors are expected.");
+         
         }
 
         [Test]
-        [Repeat(45)]
+        [Repeat(15)]
+
         public void RegisterNewUser()
         {
-            
-            
+
+          
             // Arrange
             // Act
             new LoginPage(_driver).Register(_baseUrl);

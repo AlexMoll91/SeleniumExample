@@ -87,6 +87,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PageObjects\Step2DeliveryPage.cs" />
+    <Compile Include="PageObjects\Step2Page.cs" />
+    <Compile Include="PageObjects\Step3Page.cs" />
     <Compile Include="Tests.cs" />
     <Compile Include="Data\Data.cs" />
     <Compile Include="PageObjects\LoginPage.cs" />
