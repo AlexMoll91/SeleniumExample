@@ -16,30 +16,31 @@ namespace Structura.GuiTests.Data
         using Faker;
 
         public class Data
-    {
-            
+        {
+
             public class Generics
             {
                 public static Random r = new Random();
 
                 public static List<string> securityqList = new List<string>()
-            {
-                "In what city or town was your first job?",
-                "In which city were you born?",
-                "What is your father's first name?",
-                "What is your mother's maiden name?",
-                "What is your pet's name?",
-                "What school did you attend for sixth grade?"
-            };
+                {
+                    "In what city or town was your first job?",
+                    "In which city were you born?",
+                    "What is your father's first name?",
+                    "What is your mother's maiden name?",
+                    "What is your pet's name?",
+                    "What school did you attend for sixth grade?"
+                };
 
                 public static List<string> SalutationList = new List<string>()
-            {
-                "Mr.",
-                "Ms.",
-                "Mrs.",
-                "Dr."
-            };
+                {
+                    "Mr.",
+                    "Ms.",
+                    "Mrs.",
+                    "Dr."
+                };
             }
+
             public class AccountOwner
             {
                 public AccountOwner()
@@ -47,13 +48,13 @@ namespace Structura.GuiTests.Data
                     Salutation = Generics.SalutationList[Generics.r.Next(0, Generics.SalutationList.Count - 1)];
                     FirstName = Name.First();
                     LastName = Name.Last();
-                    SSN = RandomNumber.Next(899999999).ToString();
+                    SSN = RandomNumber.Next(111111111,899999999).ToString();
                     DOB = Date.Birthday(18, 90);
-                    Year = this.DOB.Year.ToString("yyyy");
-                    Month = this.DOB.Month.ToString("MMMM");
-                    Day = this.DOB.Day.ToString("dd");
+                    Year = this.DOB.ToString("yyyy");
+                    Month = this.DOB.ToString("MMMM");
+                    Day = "13";//this.DOB.ToString("d");
                     Address1 = Address.StreetAddress();
-                    PhoneNum = Phone.CellNumber();
+                    PhoneNum = "9045402569";
                     City = Address.City();
                     State = Address.StateAbbreviation();
                     Zip = Address.ZipCode();
@@ -86,7 +87,54 @@ namespace Structura.GuiTests.Data
                 public string Salutation { get; set; }
             }
 
-            public class AccountInfo
+            public class Beneficiary
+            {
+                public Beneficiary()
+                {
+                   
+                    FirstName = Name.First();
+                    LastName = Name.Last();
+                    SSN = RandomNumber.Next(111111111,899999999).ToString();
+                    DOB = Date.Birthday(1, 15);
+                    Year = DOB.ToString("yyyy");
+                    Month = DOB.ToString("MMMM");
+                    Day = "13";//DOB.ToString("d");
+                    Address1 = Address.StreetAddress();
+                    City = Address.City();
+                    State = Address.StateAbbreviation();
+                    Zip = Address.ZipCode();
+                    AgeGrade = RandomNumber.Next(1, 3);
+                }
+
+                public int AgeGrade { get; set; }
+
+                public string Zip { get; set; }
+
+                public string State { get; set; }
+
+                public string City { get; set; }
+
+
+                public string Address1 { get; set; }
+
+                public string Day { get; set; }
+
+                public string Month { get; set; }
+
+                public string Year { get; set; }
+
+                public DateTime DOB { get; set; }
+
+                public string SSN { get; set; }
+
+                public string LastName { get; set; }
+
+                public string FirstName { get; set; }
+
+            }
+        
+
+        public class AccountInfo
             {
                 public AccountInfo()
                 {

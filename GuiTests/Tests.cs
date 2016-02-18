@@ -72,9 +72,9 @@ namespace Structura.GuiTests
         }
 
         [Test]
-        [Repeat(15)]
+        //[Repeat(15)]
 
-        public void RegisterNewUser()
+        public void FourYearUniversity5YearApp()
         {
 
           
@@ -89,6 +89,29 @@ namespace Structura.GuiTests
             var rp = new RegistrationPage(_driver);
             rp.EmailField.Displayed.Should().BeTrue();
             rp.Register();
+            var s2 = new Step2Page(_driver);
+            s2.Step2();
+            var s2d = new Step2DeliveryPage(_driver);
+            s2d.Step2DeliveryOptions();
+            var s3 = new Step3Page(_driver);
+            s3.Step3();
+            //step 4 params: TwoYearCollege, TwoPlusTwo, OneYearUniversity, FourYearUniversity, FourYearCollege
+            var s4 = new Step4Page(this._driver);
+            s4.Step4SelectPlan("FourYearUniversity","",false,0);
+            var s5 = new Step5Page(this._driver);
+            s5.PaymentPlan("FourYearUniversity","","FiveYear",true,2);
+            var s6 = new Step6Page(this._driver);
+            s6.SubmitResidency(2);
+            var s7 = new Step7Page(this._driver);
+            s7.HowToPay(false);
+            var ayr = new AreYouReadyPage(this._driver);
+            ayr.AreYouReady("Checkout");
+            var c1 = new Checkout1Page(this._driver);
+            c1.Checkout1("mailin");
+            var c2 = new Checkout2Page(this._driver);
+            c2.Checkout2(false, true);
+            var sub = new SubmissionPage(this._driver);
+            sub.SubmissionSuccess();
             runCount++;
             
             

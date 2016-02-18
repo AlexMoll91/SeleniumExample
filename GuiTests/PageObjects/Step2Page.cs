@@ -34,7 +34,7 @@ namespace Structura.GuiTests.PageObjects
             [FindsBy(How = How.Id, Using = "cphBody_txtFirstName")]
             public IWebElement FirstNameField { get; set; }
 
-            [FindsBy(How = How.Id, Using = "cphBody_txtFirstName")]
+            [FindsBy(How = How.Id, Using = "cphBody_txtLastName")]
             public IWebElement LastNameField { get; set; }
 
             [FindsBy(How = How.Id, Using = "cphBody_txtSsn")]
@@ -58,6 +58,9 @@ namespace Structura.GuiTests.PageObjects
             [FindsBy(How = How.Id, Using = "cphBody_ddlStates")]
             public IWebElement StateDropDown { get; set; }
 
+            [FindsBy(How = How.Id, Using = "cphBody_txtZip")]
+            public IWebElement ZipCodeField { get; set; }
+
             [FindsBy(How = How.Id, Using = "cphBody_txtPrimaryTelephone")]
             public IWebElement PhoneNumberField { get; set; }
 
@@ -78,7 +81,7 @@ namespace Structura.GuiTests.PageObjects
                 var DOBMonthDropdownSelect = new SelectElement(DobMonthDropdown);
                 var DOBDayDropdownSelect = new SelectElement(DobDayDropdown);
                 var StateDropdownSelect = new SelectElement(StateDropDown);
-
+                Console.WriteLine(d.DOB + " "+d.Year);
                 SalutationDropdownSelect.SelectByText(d.Salutation);
                 FirstNameField.SendKeys(d.FirstName);
                 LastNameField.SendKeys(d.LastName);
@@ -89,6 +92,7 @@ namespace Structura.GuiTests.PageObjects
                 Address1Field.SendKeys(d.Address1);
                 CityField.SendKeys(d.City);
                 StateDropdownSelect.SelectByText(d.State);
+                ZipCodeField.SendKeys(d.Zip);
                 PhoneNumberField.SendKeys(d.PhoneNum);
                 CellRadio.Click();
                 NextButton.Click();
