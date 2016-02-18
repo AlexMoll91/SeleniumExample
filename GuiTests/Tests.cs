@@ -13,6 +13,7 @@ using Tests.PageObjects;
 
 namespace Structura.GuiTests
 {
+    using OpenQA.Selenium.PhantomJS;
     using OpenQA.Selenium.Remote;
 
     [TestFixture("chrome", "45", "Windows 7", "", "")]
@@ -52,9 +53,9 @@ namespace Structura.GuiTests
             caps.SetCapability("accessKey", "2a304989-8d68-4c32-aed1-2ec6ba1ca97a");
             caps.SetCapability("name", TestContext.CurrentContext.Test.Name);
 
-            _driver = new RemoteWebDriver(new Uri("http://ondemand.saucelabs.com:80/wd/hub"), caps,
-                TimeSpan.FromSeconds(600));
-            
+            _driver = new PhantomJSDriver(); //RemoteWebDriver(new Uri("http://ondemand.saucelabs.com:80/wd/hub"), caps,
+            //TimeSpan.FromSeconds(600));
+
         }
         [TearDown]
         public void TeardownTest()
@@ -105,8 +106,10 @@ namespace Structura.GuiTests
             var s7 = new Step7Page(this._driver);
             s7.HowToPay(false);
             var ayr = new AreYouReadyPage(this._driver);
+            //checkout--savings--buyanother
             ayr.AreYouReady("Checkout");
             var c1 = new Checkout1Page(this._driver);
+            //ach--cc--mailin
             c1.Checkout1("mailin");
             var c2 = new Checkout2Page(this._driver);
             c2.Checkout2(false, true);

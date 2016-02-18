@@ -15,6 +15,7 @@ namespace Structura.GuiTests.PageObjects
     namespace Tests.PageObjects
         {
         using System.Threading;
+        using OpenQA.Selenium.Interactions;
         using Tests = GuiTests.Tests;
 
 
@@ -86,6 +87,8 @@ namespace Structura.GuiTests.PageObjects
                 DOBMonthDropdownSelect.SelectByText(d.Month);
                 DOBDayDropdownSelect.SelectByText(d.Day);
                 SSNField.Click();
+                Actions builder = new Actions(_driver);
+                builder.SendKeys(Keys.Tab).Perform();
                 var AgeGradeDropdownSelect = new SelectElement(AgeGradeDropdown);
                 AgeGradeDropdownSelect.SelectByIndex(d.AgeGrade);
                 Address1Field.SendKeys(d.Address1);

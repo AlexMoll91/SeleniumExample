@@ -103,7 +103,7 @@ namespace Structura.GuiTests.Data
                     City = Address.City();
                     State = Address.StateAbbreviation();
                     Zip = Address.ZipCode();
-                    AgeGrade = RandomNumber.Next(1, 3);
+                    AgeGrade = RandomNumber.Next(1, 1);
                 }
 
                 public int AgeGrade { get; set; }
