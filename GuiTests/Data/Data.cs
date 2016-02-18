@@ -39,6 +39,26 @@ namespace Structura.GuiTests.Data
                     "Mrs.",
                     "Dr."
                 };
+
+                public static List<string> RoutingNumberList = new List<string>()
+                {
+                    "021000021",
+                    "011401533",
+                    "091000019"
+                };
+
+                public static List<string> BankTypeList = new List<string>()
+                {
+                    "C",
+                    "S"
+                };
+
+                public static List<string> CreditCardList = new List<string>()
+                {
+                    "4111111111111111",
+                    "5555555555554444",
+                    "6011111111111117"
+                };
             }
 
             public class AccountOwner
@@ -87,6 +107,51 @@ namespace Structura.GuiTests.Data
                 public string Salutation { get; set; }
             }
 
+            public class CCInfo
+            {
+                public CCInfo()
+                {
+                    FirstName = Name.First();
+                    LastName = Name.Last();
+                    CCNum = Generics.CreditCardList[RandomNumber.Next(0, 2)];
+                    CCCVC = "111";
+                    ExpMonth = DateTime.Now.ToString("MM");
+                    ExpYear = DateTime.Now.ToString("yyyy");
+                    ZipCode = RandomNumber.Next(00001, 99999).ToString();
+                }
+
+                public string ZipCode { get; set; }
+
+                public string ExpYear { get; set; }
+
+                public string ExpMonth { get; set; }
+
+                public string CCCVC { get; set; }
+
+                public string CCNum { get; set; }
+
+                public string LastName { get; set; }
+
+                public string FirstName { get; set; }
+            }
+            public class ACHInfo
+            {
+                public ACHInfo()
+                {
+                    BankName = Company.Name();
+                    BankRouting = Generics.RoutingNumberList[Generics.r.Next(0, 2)];
+                    BankAccountNum = RandomNumber.Next(1001, 3000000000).ToString();
+                    BankAccountType = Generics.BankTypeList[RandomNumber.Next(0, 1)];
+                }
+
+                public string BankAccountType { get; set; }
+
+                public string BankAccountNum { get; set; }
+
+                public string BankRouting { get; set; }
+
+                public string BankName { get; set; }
+            }
             public class Beneficiary
             {
                 public Beneficiary()
@@ -95,7 +160,7 @@ namespace Structura.GuiTests.Data
                     FirstName = Name.First();
                     LastName = Name.Last();
                     SSN = RandomNumber.Next(111111111,899999999).ToString();
-                    DOB = Date.Birthday(1, 15);
+                    DOB = Date.Birthday(1, 12);
                     Year = DOB.ToString("yyyy");
                     Month = DOB.ToString("MMMM");
                     Day = "13";//DOB.ToString("d");
@@ -138,7 +203,7 @@ namespace Structura.GuiTests.Data
             {
                 public AccountInfo()
                 {
-                    this.username = "KyleCrabtree" + Generics.r.Next(50000);
+                    this.username = Generics.r.Next(50000).ToString();
                     this.Password = "Password1";
                     this.Email = this.username + "@testfpp.com";
                     this.Securityselection = Generics.securityqList[Generics.r.Next(0, Generics.securityqList.Count - 1)];

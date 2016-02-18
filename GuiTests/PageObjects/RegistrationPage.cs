@@ -53,14 +53,14 @@ namespace Structura.GuiTests.PageObjects
             [FindsBy(How = How.Id, Using = "cphBody_btnCreateAccount")]
             public IWebElement NextButton { get; set; }
             
-            public void Register()
+            public void Register(string planType)
             {
                 var d = new Data.AccountInfo();
 
                
-                EmailField.SendKeys(d.Email);
-                EmailConfirmField.SendKeys(d.Email);
-                UsernameField.SendKeys(d.username);
+                EmailField.SendKeys(planType+d.Email);
+                EmailConfirmField.SendKeys(planType+d.Email);
+                UsernameField.SendKeys(planType+d.username);
                 PasswordField.SendKeys(d.Password);
                 ConfirmPasswordField.SendKeys(d.Password);
                 SelectElement SecurityQuestionDrop = new SelectElement(SecurityQuestionDropdown);

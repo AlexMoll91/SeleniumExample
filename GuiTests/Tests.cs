@@ -53,8 +53,9 @@ namespace Structura.GuiTests
             caps.SetCapability("accessKey", "2a304989-8d68-4c32-aed1-2ec6ba1ca97a");
             caps.SetCapability("name", TestContext.CurrentContext.Test.Name);
 
-            _driver = new PhantomJSDriver(); //RemoteWebDriver(new Uri("http://ondemand.saucelabs.com:80/wd/hub"), caps,
-            //TimeSpan.FromSeconds(600));
+            _driver = new RemoteWebDriver(new Uri("http://ondemand.saucelabs.com:80/wd/hub"), caps,
+            TimeSpan.FromSeconds(600));
+                //new PhantomJSDriver(); //
 
         }
         [TearDown]
@@ -73,9 +74,8 @@ namespace Structura.GuiTests
         }
 
         [Test]
-        //[Repeat(15)]
-
-        public void FourYearUniversity5YearApp()
+        
+        public void FourYearUniversity_Auto5Year_CCApp()
         {
 
           
@@ -89,7 +89,7 @@ namespace Structura.GuiTests
             registerpathPage.NewPlanSelect();
             var rp = new RegistrationPage(_driver);
             rp.EmailField.Displayed.Should().BeTrue();
-            rp.Register();
+            rp.Register("4YearUni");
             var s2 = new Step2Page(_driver);
             s2.Step2();
             var s2d = new Step2DeliveryPage(_driver);
@@ -100,11 +100,96 @@ namespace Structura.GuiTests
             var s4 = new Step4Page(this._driver);
             s4.Step4SelectPlan("FourYearUniversity","",false,0);
             var s5 = new Step5Page(this._driver);
-            s5.PaymentPlan("FourYearUniversity","","FiveYear",true,2);
+            s5.PaymentPlan("FourYearUniversity","",0,"FiveYear",true,2);
             var s6 = new Step6Page(this._driver);
             s6.SubmitResidency(2);
             var s7 = new Step7Page(this._driver);
-            s7.HowToPay(false);
+            s7.HowToPay("FourYearUniversity","",0,"FiveYear",true);
+            var ayr = new AreYouReadyPage(this._driver);
+            //checkout--savings--buyanother
+            ayr.AreYouReady("Checkout");
+            var c1 = new Checkout1Page(this._driver);
+            //ach--cc--mailin
+            c1.Checkout1("CC");
+            var c2 = new Checkout2Page(this._driver);
+            c2.Checkout2(false, true);
+            var sub = new SubmissionPage(this._driver);
+            sub.SubmissionSuccess();
+            runCount++;
+            
+            
+            
+        }
+
+        [Test]
+
+        public void FourYearUniversity_Auto5Year_ACHApp()
+            {
+            new LoginPage(_driver).Register(_baseUrl);
+
+            // Assert
+            var registerpathPage = new RegisterPathPage(_driver);
+            registerpathPage.NewPlanButton.Displayed.Should().BeTrue();
+            registerpathPage.NewPlanSelect();
+            var rp = new RegistrationPage(_driver);
+            rp.EmailField.Displayed.Should().BeTrue();
+            rp.Register("4YearUni");
+            var s2 = new Step2Page(_driver);
+            s2.Step2();
+            var s2d = new Step2DeliveryPage(_driver);
+            s2d.Step2DeliveryOptions();
+            var s3 = new Step3Page(_driver);
+            s3.Step3();
+            //step 4 params: TwoYearCollege, TwoPlusTwo, OneYearUniversity, FourYearUniversity, FourYearCollege
+            var s4 = new Step4Page(this._driver);
+            s4.Step4SelectPlan("FourYearUniversity", "", false, 0);
+            var s5 = new Step5Page(this._driver);
+            s5.PaymentPlan("FourYearUniversity", "", 0, "FiveYear", true, 2);
+            var s6 = new Step6Page(this._driver);
+            s6.SubmitResidency(2);
+            var s7 = new Step7Page(this._driver);
+            s7.HowToPay("FourYearUniversity", "", 0, "FiveYear", true);
+            var ayr = new AreYouReadyPage(this._driver);
+            //checkout--savings--buyanother
+            ayr.AreYouReady("Checkout");
+            var c1 = new Checkout1Page(this._driver);
+            //ach--cc--mailin
+            c1.Checkout1("ACH");
+            var c2 = new Checkout2Page(this._driver);
+            c2.Checkout2(false, true);
+            var sub = new SubmissionPage(this._driver);
+            sub.SubmissionSuccess();
+            runCount++;
+            }
+
+        [Test]
+
+        public void FourYearUniversity_Auto5Year_2dorm_MailInApp()
+            {
+            new LoginPage(_driver).Register(_baseUrl);
+
+            // Assert
+            var registerpathPage = new RegisterPathPage(_driver);
+            registerpathPage.NewPlanButton.Displayed.Should().BeTrue();
+            registerpathPage.NewPlanSelect();
+            var rp = new RegistrationPage(_driver);
+            rp.EmailField.Displayed.Should().BeTrue();
+            rp.Register("4YearUni");
+            var s2 = new Step2Page(_driver);
+            s2.Step2();
+            var s2d = new Step2DeliveryPage(_driver);
+            s2d.Step2DeliveryOptions();
+            var s3 = new Step3Page(_driver);
+            s3.Step3();
+            //step 4 params: TwoYearCollege, TwoPlusTwo, OneYearUniversity, FourYearUniversity, FourYearCollege
+            var s4 = new Step4Page(this._driver);
+            s4.Step4SelectPlan("FourYearUniversity", "", false, 0);
+            var s5 = new Step5Page(this._driver);
+            s5.PaymentPlan("FourYearUniversity", "", 0, "FiveYear", true, 2);
+            var s6 = new Step6Page(this._driver);
+            s6.SubmitResidency(2);
+            var s7 = new Step7Page(this._driver);
+            s7.HowToPay("FourYearUniversity", "", 0, "FiveYear", true);
             var ayr = new AreYouReadyPage(this._driver);
             //checkout--savings--buyanother
             ayr.AreYouReady("Checkout");
@@ -116,11 +201,48 @@ namespace Structura.GuiTests
             var sub = new SubmissionPage(this._driver);
             sub.SubmissionSuccess();
             runCount++;
-            
-            
-            
-        }
+            }
 
+        [Test]
+
+        public void TwoPlusTwo_Auto5Year_1dorm_ACHApp()
+            {
+            new LoginPage(_driver).Register(_baseUrl);
+
+            // Assert
+            var registerpathPage = new RegisterPathPage(_driver);
+            registerpathPage.NewPlanButton.Displayed.Should().BeTrue();
+            registerpathPage.NewPlanSelect();
+            var rp = new RegistrationPage(_driver);
+            rp.EmailField.Displayed.Should().BeTrue();
+            rp.Register("TwoPlusTwo");
+            var s2 = new Step2Page(_driver);
+            s2.Step2();
+            var s2d = new Step2DeliveryPage(_driver);
+            s2d.Step2DeliveryOptions();
+            var s3 = new Step3Page(_driver);
+            s3.Step3();
+            //step 4 params: TwoYearCollege, TwoPlusTwo, OneYearUniversity, FourYearUniversity, FourYearCollege
+            var s4 = new Step4Page(this._driver);
+            s4.Step4SelectPlan("TwoPlusTwo", "", false, 0);
+            var s5 = new Step5Page(this._driver);
+            s5.PaymentPlan("TwoPlusTwo", "", 0, "FiveYear", true, 1);
+            var s6 = new Step6Page(this._driver);
+            s6.SubmitResidency(2);
+            var s7 = new Step7Page(this._driver);
+            s7.HowToPay("TwoPlusTwo", "", 0, "FiveYear", true);
+            var ayr = new AreYouReadyPage(this._driver);
+            //checkout--savings--buyanother
+            ayr.AreYouReady("Checkout");
+            var c1 = new Checkout1Page(this._driver);
+            //ach--cc--mailin
+            c1.Checkout1("ACH");
+            var c2 = new Checkout2Page(this._driver);
+            c2.Checkout2(false, true);
+            var sub = new SubmissionPage(this._driver);
+            sub.SubmissionSuccess();
+            runCount++;
+            }
         
     }
 }

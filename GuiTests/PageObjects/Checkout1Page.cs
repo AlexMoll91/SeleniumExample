@@ -6,8 +6,9 @@ namespace Tests.PageObjects
     {
     using System;
     using OpenQA.Selenium.Support.UI;
+    using Structura.GuiTests.Data;
 
-    public class Checkout1Page
+        public class Checkout1Page
         {
         private readonly IWebDriver _driver;
 
@@ -31,6 +32,45 @@ namespace Tests.PageObjects
         [FindsBy(How = How.Id, Using = "cphBody_btnSubmitCheckout")]
         public IWebElement NextButton { get; set; }
 
+        [FindsBy(How = How.Id, Using = "cphBody_txtBankName")]
+        public IWebElement FinancialInstitutionNameField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "cphBody_txtBankRoutingNumber")]
+        public IWebElement FinancialInstitutionRoutingField { get; set; }
+
+
+        [FindsBy(How = How.Id, Using = "cphBody_txtBankAccountNumber")]
+        public IWebElement FinancialInstitutionAccountNumField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "cphBody_ddlBankAccountType")]
+        public IWebElement FinancialInstitutionAccountTypeDropdown { get; set; }
+
+        [FindsBy(How = How.Id, Using = "cphBody_chkAgreePrepaid")]
+        public IWebElement PrepaidTOSCheckbox { get; set; }
+
+        [FindsBy(How = How.Id, Using = "cphBody_chkAgreeCreditCard")]
+        public IWebElement PrepaidCCTOSCheckbox { get; set; }
+
+        [FindsBy(How = How.Id, Using = "cphBody_txtCardHoldersFirstName")]
+        public IWebElement CCFirstNameField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "cphBody_txtCardholdersLastName")]
+        public IWebElement CCLastNameField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "cphBody_txtCreditCardNumber")]
+        public IWebElement CCCardNumField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "cphBody_txtSecurityCode")]
+        public IWebElement CCCVCField { get; set; }
+
+        [FindsBy(How = How.Id, Using = "cphBody_ddlMonth")]
+        public IWebElement ExpirationMonthDropdown { get; set; }
+
+        [FindsBy(How = How.Id, Using = "cphBody_ddlYear")]
+        public IWebElement ExpirationYearDropdown { get; set; }
+
+        [FindsBy(How = How.Id, Using = "cphBody_txtZip")]
+        public IWebElement CCZipField { get; set; }
 
 
 
@@ -41,8 +81,28 @@ namespace Tests.PageObjects
             switch (paymentType.ToLower())
             {
                 case "ach":
+                    var d = new Data.ACHInfo();
+                    ACHRadio.Click();
+                    FinancialInstitutionNameField.SendKeys(d.BankName);
+                    FinancialInstitutionAccountNumField.SendKeys(d.BankAccountNum);
+                    FinancialInstitutionRoutingField.SendKeys(d.BankRouting);
+                    var FinancialInstitutionTypeDropdownSelect = new SelectElement(FinancialInstitutionAccountTypeDropdown);
+                    FinancialInstitutionTypeDropdownSelect.SelectByValue(d.BankAccountType);
+                    PrepaidTOSCheckbox.Click();
                     break;
                 case "cc":
+                    var dcc = new Data.CCInfo();
+                    CCRadio.Click();
+                    CCFirstNameField.SendKeys(dcc.FirstName);
+                    CCLastNameField.SendKeys(dcc.LastName);
+                    CCCardNumField.SendKeys(dcc.CCNum);
+                    CCCVCField.SendKeys(dcc.CCCVC);
+                    var CCExpMonthDropdown = new SelectElement(ExpirationMonthDropdown);
+                    CCExpMonthDropdown.SelectByValue(dcc.ExpMonth);
+                    var CCExpYearDropdown = new SelectElement(ExpirationYearDropdown);
+                    CCExpYearDropdown.SelectByValue(dcc.ExpYear);
+                    CCZipField.SendKeys(dcc.ZipCode);
+                    PrepaidCCTOSCheckbox.Click();
                     break;
                 case "mailin":
                     MailInRadio.Click();
