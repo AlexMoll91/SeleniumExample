@@ -5,6 +5,8 @@ using Tests.SeleniumHelpers;
 namespace Tests.PageObjects
     {
     using System;
+    using FluentAssertions;
+    using NUnit.Core;
     using OpenQA.Selenium.Support.UI;
     using Structura.GuiTests.Data;
 
@@ -67,10 +69,14 @@ namespace Tests.PageObjects
         [FindsBy(How = How.Id, Using = "cphBody_btnSubmitHowToPay")]
         public IWebElement NextButton { get; set; }
 
-        
 
-        
 
+
+        public static bool WaitUntilElementIsPresent(IWebDriver driver, IWebElement webele, int timeout = 10)
+            {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
+            return wait.Until(d => webele.Displayed && webele.Enabled);
+            }
 
         public void HowToPay(string planType1, string planType2, int oneyearAmount, string paymentPlan, bool AutomaticYN)
             {
@@ -79,19 +85,23 @@ namespace Tests.PageObjects
                 var d = new Data.ACHInfo();
                 PrepaidAutomaticWithdrawalRadio.Click();
                     if((planType1 + planType2 + oneyearAmount).ToLower().Contains("twoyear"))
-                        {
+                    {
+                        
                         TwoYearCollegeCheckbox.Click();
                         }
                     if ((planType1 + planType2 + oneyearAmount).ToLower().Contains("fouryearcollege"))
                         {
+                       
                         FourYearCollegeCheckbox.Click();
                         }
                     if ((planType1 + planType2 + oneyearAmount).ToLower().Contains("fouryearuniversity"))
                         {
+                        
                         FourYearUniversityCheckbox.Click();
                         }
                     if ((planType1 + planType2 + oneyearAmount).ToLower().Contains("twoplustwo"))
                         {
+                        
                         TwoPlusTwoCheckbox.Click();
                         }
                     switch (oneyearAmount)
@@ -122,6 +132,9 @@ namespace Tests.PageObjects
                 FinancialInstitutionRoutingField.SendKeys(d.BankRouting);
                 var FinancialInstitutionTypeDropdownSelect = new SelectElement(FinancialInstitutionAccountTypeDropdown);
                 FinancialInstitutionTypeDropdownSelect.SelectByValue(d.BankAccountType);
+                Console.WriteLine("[BANK: "+d.BankName+"]");
+                Console.WriteLine("[BANK ACCOUNT #: " + d.BankAccountNum + "]");
+                Console.WriteLine("[BANK ACCOUNT TYPE: " + d.BankAccountType + "]");
                 PrepaidTOSCheckbox.Click();
                 }
             else
@@ -131,6 +144,5 @@ namespace Tests.PageObjects
             
             NextButton.Click();
             }
-
         }
     }

@@ -5,6 +5,7 @@ using Tests.SeleniumHelpers;
 namespace Tests.PageObjects
     {
     using System;
+    using OpenQA.Selenium.Interactions;
     using OpenQA.Selenium.Support.UI;
     using Structura.GuiTests.Data;
 
@@ -72,9 +73,12 @@ namespace Tests.PageObjects
         [FindsBy(How = How.Id, Using = "cphBody_txtZip")]
         public IWebElement CCZipField { get; set; }
 
+        [FindsBy(How = How.Id, Using = "cphBody_txtPromoCode")]
+        public IWebElement PromoCodeField { get; set; }
 
 
 
+            
 
         public void Checkout1(string paymentType)
             {
@@ -83,6 +87,7 @@ namespace Tests.PageObjects
                 case "ach":
                     var d = new Data.ACHInfo();
                     ACHRadio.Click();
+                    PromoCodeField.Click();
                     FinancialInstitutionNameField.SendKeys(d.BankName);
                     FinancialInstitutionAccountNumField.SendKeys(d.BankAccountNum);
                     FinancialInstitutionRoutingField.SendKeys(d.BankRouting);
@@ -93,6 +98,8 @@ namespace Tests.PageObjects
                 case "cc":
                     var dcc = new Data.CCInfo();
                     CCRadio.Click();
+                    PromoCodeField.Click();
+                    FluentAssertions.AssertionExtensions.Should(CCFirstNameField.Displayed);
                     CCFirstNameField.SendKeys(dcc.FirstName);
                     CCLastNameField.SendKeys(dcc.LastName);
                     CCCardNumField.SendKeys(dcc.CCNum);
@@ -103,6 +110,7 @@ namespace Tests.PageObjects
                     CCExpYearDropdown.SelectByValue(dcc.ExpYear);
                     CCZipField.SendKeys(dcc.ZipCode);
                     PrepaidCCTOSCheckbox.Click();
+                    Console.WriteLine("[CC #: "+CCCardNumField+"]");
                     break;
                 case "mailin":
                     MailInRadio.Click();

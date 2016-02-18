@@ -66,14 +66,12 @@ namespace Structura.GuiTests.PageObjects
                 SelectElement SecurityQuestionDrop = new SelectElement(SecurityQuestionDropdown);
                 SecurityQuestionDrop.SelectByText(d.Securityselection);
                 SecurityQuestionAnswer.SendKeys(d.Securityanswer);
-                Console.WriteLine(d.username);
-                Console.WriteLine(d.Securityanswer);
                 NextButton.Click();
 
                 if (this._driver.Url == @"https://betacustomeraccess.myfloridaprepaid.com/enrollment/accountowner.aspx")
                 {
                     Tests.successCount++;
-                    Console.WriteLine("[SUCCESS RUN #" + Tests.runCount + "] [User: " + d.username + " created]");
+                    Console.WriteLine("User: " + planType+d.username + " created]");
                 }
                 else
                 {

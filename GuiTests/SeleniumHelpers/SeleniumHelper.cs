@@ -58,11 +58,12 @@ namespace Structura.GuiTests.SeleniumHelpers
             wait.Until(webDriver => (DateTime.Now - timestamp) > delay);
         }
 
+        
 
         public static string GetCosasBuildVersion()
         {
             var version = Assembly.GetExecutingAssembly().GetName().Version;
-            var result = string.Format(CultureInfo.InvariantCulture, "{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.MinorRevision);
+            var result = String.Format(CultureInfo.InvariantCulture, "{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.MinorRevision);
 
             return result;
         }

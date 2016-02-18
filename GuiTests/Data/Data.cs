@@ -138,7 +138,7 @@ namespace Structura.GuiTests.Data
             {
                 public ACHInfo()
                 {
-                    BankName = Company.Name();
+                    BankName = Name.First() + "Bank";
                     BankRouting = Generics.RoutingNumberList[Generics.r.Next(0, 2)];
                     BankAccountNum = RandomNumber.Next(1001, 3000000000).ToString();
                     BankAccountType = Generics.BankTypeList[RandomNumber.Next(0, 1)];

@@ -5,6 +5,7 @@ using Tests.SeleniumHelpers;
 namespace Tests.PageObjects
     {
     using System;
+    using System.Threading;
     using OpenQA.Selenium.Support.UI;
 
     public class Checkout2Page
@@ -32,6 +33,7 @@ namespace Tests.PageObjects
 
         public void Checkout2(bool savingsYN, bool prepaidYN)
             {
+            Thread.Sleep(2000);
             if (prepaidYN)
             {
                 PrepaidAgreementCheckbox.Click();

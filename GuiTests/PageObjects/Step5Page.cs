@@ -5,6 +5,7 @@ using Tests.SeleniumHelpers;
 namespace Tests.PageObjects
 {
     using System;
+    using System.Threading;
     using OpenQA.Selenium.Support.UI;
 
     public class Step5Page
@@ -126,6 +127,8 @@ namespace Tests.PageObjects
 
         public void PaymentPlan(string planType1, string planType2, int oneyearAmount, string paymentPlan, bool DormYN, int DormAmount)
         {
+            Thread.Sleep(2000);
+            this._driver.FindElement(By.Id("cphBody_pnlSubmit")).Click();
             if (planType1 == "FourYearUniversity")
             {
                 switch (paymentPlan.ToLower())

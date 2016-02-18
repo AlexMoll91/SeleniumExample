@@ -4,6 +4,9 @@ using Tests.PageObjects;
 
 namespace Structura.GuiTests.PageObjects
 {
+    using System;
+    using OpenQA.Selenium.Support.UI;
+
     public class MainPage
     {
         private readonly IWebDriver _driver;
@@ -19,7 +22,11 @@ namespace Structura.GuiTests.PageObjects
 
         [FindsBy(How = How.Id, Using = "_ctl0__ctl0_Content_MenuHyperLink3")]
         public IWebElement TransferFundsButton { get; set; }
-
+        public static bool WaitUntilElementIsPresent(IWebDriver driver, IWebElement webele, int timeout = 10)
+            {
+            var wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeout));
+            return wait.Until(d => webele.Displayed && webele.Enabled);
+            }
         public TransferFundsPage NavigateToTransferFunds()
         {
             TransferFundsButton.Click();

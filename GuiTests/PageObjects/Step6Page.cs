@@ -5,6 +5,7 @@ using Tests.SeleniumHelpers;
 namespace Tests.PageObjects
     {
     using System;
+    using System.Threading;
     using OpenQA.Selenium.Support.UI;
 
     public class Step6Page
@@ -48,6 +49,7 @@ namespace Tests.PageObjects
             }
             else
             {
+                Thread.Sleep(2000);
                 ResidencyMailRadio.Click();
             }
             var ParentDropdownSelect = new SelectElement(ParentDropdown);

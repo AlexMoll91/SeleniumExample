@@ -81,7 +81,7 @@ namespace Structura.GuiTests.PageObjects
                 var DOBMonthDropdownSelect = new SelectElement(DobMonthDropdown);
                 var DOBDayDropdownSelect = new SelectElement(DobDayDropdown);
                 var StateDropdownSelect = new SelectElement(StateDropDown);
-                Console.WriteLine(d.DOB + " "+d.Year);
+                
                 SalutationDropdownSelect.SelectByText(d.Salutation);
                 FirstNameField.SendKeys(d.FirstName);
                 LastNameField.SendKeys(d.LastName);
